@@ -24,7 +24,7 @@ r_files <- list.files("sorted_R", recursive = TRUE)
 cat("파일 개수 일치 여부:", length(bash_files) == length(r_files), "\n")
 cat("파일 경로 및 이름 완전 일치 여부:", all(bash_files == r_files), "\n")
 
-
+#--------------------------------------------------------------------------------------------- 2번
 
 
 sequencing <- data.frame(
@@ -47,6 +47,10 @@ sequencing$total_microbial_Gb <- sequencing$samples * sequencing$microbial_yield
 # 결과 출력
 print(sequencing[, c("platform", "samples", "total_microbial_Gb")])
 
+
+#------------------------------------------------------3번
+
+
 library(dada2)
 rawpath <- system.file("extdata", package = "dada2")
 fnFs <- file.path(rawpath,
@@ -54,6 +58,8 @@ fnFs <- file.path(rawpath,
 fnRs <- file.path(rawpath,
                   c("sam1R.fastq.gz", "sam2R.fastq.gz"))
 sample.names <- c("sam1", "sam2")
+﻿
+# Quality Profile 시각화
 plotQualityProfile(fnFs)
 plotQualityProfile(fnRs)
 
@@ -98,6 +104,8 @@ cat("\n[키메라 제거 결과]\n")
 cat("제거된 키메라 ASV 개수:", removed_asvs, "개\n")
 cat("제거된 키메라 Read 개수:", removed_reads, "개\n")
 
+#--------------------------------------------------------------------4(a)번
+
 BiocManager::install(c("DECIPHER", "phangorn"), update = FALSE, ask = FALSE)
 
 library(Biostrings)
@@ -122,7 +130,7 @@ tree <- NJ(dm)
 plot(tree, main = "Neighbor-Joining Tree of Top 5 ASVs")
 write.tree(tree, file = "top5_ASVs.nwk")
 
-#_____________________________________________
+#--------------------------------------------------------------------4(c)번
 
 condition <- c("Untreated", "Treated")
 total_reads <- c(20000000, 20000000)
@@ -151,7 +159,7 @@ print(df_res)
 cat("\nMicrobial Reads Fold Change (Treated / Untreated):", fc_microbial, "배\n")
 cat("Excluding Taxon_X Fold Change (Treated / Untreated):", fc_excl_taxon_X, "배\n")
 
-#________________________________________________
+#--------------------------------------------------------------------5(c)번
 
 
 score <- c(0.20, 0.60)
@@ -186,4 +194,6 @@ print(round(CASI_delta, 3))
 
 cat("\n3. New probability (p1):\n")
 cat("Initial p0 =", p0, "--> New p1 =", round(p1, 4), "(or", round(p1 * 100, 2), "%)\n")
+
+#--------------------------------------------------------------------6(b)번
 
